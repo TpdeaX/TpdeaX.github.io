@@ -1,15 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AR.js A-Frame Location-based</title>
-<script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-<script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js'></script>
-<script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js'></script>
+  <title>AR.js A-Frame Location-based</title>
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js'></script>
+  <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js'></script>
+  <style>
+    #position-label {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+  </style>
 </head>
-<body>
-<a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
+<body style="margin: 0; overflow: hidden;">
+  <!-- Interfaz fija para mostrar la posición en pantalla -->
+  <div id="position-label">Latitud: ---, Longitud: ---</div>
+
+  <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
     <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
-    <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: -8.376658732849332; longitude: -74.52514003949209" scale="100 100 100"></a-entity>
-</a-scene>
+    
+    <!-- Objeto rojo en la ubicación especificada -->
+    <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: <add-your-latitude>; longitude: <add-your-longitude>" scale="10 10 10">
+      <a-text value="Ubicación: Punto Rojo" align="center" position="0 1.5 0" scale="5 5 5" color="#FFFFFF"></a-text>
+    </a-entity>
+  </a-scene>
+
+  <script>
+    // Obtener posición del dispositivo y mostrarla en pantalla
+    window.onload = function() {
+      const label = document.getElementById('position-label');
+      
+      navigator.geolocation.watchPosition(function(position) {
+        // Muestra las coordenadas actuales
+        label.innerHTML = `Latitud: ${position.coords.latitude.toFixed(5)}, Longitud: ${position.coords.longitude.toFixed(5)}`;
+      }, function(error) {
+        label.innerHTML = 'Error obteniendo ubicación';
+      }, {
+        enableHighAccuracy: true
+      });
+    };
+  </script>
 </body>
 </html>
