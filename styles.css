@@ -1,0 +1,34 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    position: absolute;
+    top: 20px;
+    color: #333;
+    font-family: sans-serif;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    position: relative; /* Asegúrate de que el contenedor sea relativo */
+}
+
+#videoElement {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;        /* Ocupa toda la pantalla */
+    height: 100%;       /* Ocupa toda la pantalla */
+    object-fit: cover;  /* Mantiene la relación de aspecto */
+    z-index: 1;         /* Asegúrate de que esté encima del modelo */
+}
