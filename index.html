@@ -28,11 +28,16 @@
   <div id="position-label">Latitud: ---, Longitud: ---</div>
 
   <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
-    <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
+    <a-assets>
+      <a-asset-item id="modeloGLB" src="spider_man_mcu.glb"></a-asset-item> <!-- Cambia la ruta según corresponda -->
+    </a-assets>
+    
+    <a-camera gps-new-camera='gpsMinDistance: 10'></a-camera>
     
     <!-- Objeto rojo en la ubicación especificada -->
-    <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: -8.376658732849332; longitude: -74.52514003949209" scale="10 10 10">
+    <a-entity  gltf-model="#modeloGLB" gps-new-entity-place="latitude: -8.3963218; longitude: -74.5771589" scale="20 20 20">
       <a-text value="Ubicación: Punto Rojo" align="center" position="0 1.5 0" scale="5 5 5" color="#FFFFFF"></a-text>
+      <a-text value="Modelo 3D" align="center" position="0 2 0" scale="5 5 5" color="#FFFFFF"></a-text>
     </a-entity>
   </a-scene>
 
